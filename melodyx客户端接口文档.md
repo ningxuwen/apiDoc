@@ -31,6 +31,9 @@
 * [1、查询课程信息](#7)
 * [2、获取课程信息用于下载](#8)
 
+#### 问答接口
+* [1、根据节课id(coursepartId)获取问答信息](#9)
+
 
 
 ### 接口详情
@@ -313,3 +316,61 @@
 100100014 | 学校id不能为空
 100100017 | 学校不存在
 100100018 | 课程id为空
+
+<h3 id="9">9.根据节课id(coursepartId)获取问答信息</h3>
+
+#### 接口名字
+* /client/question/findQuestions.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* coursepartId*：节课id
+
+#### 接口正确返回
+````
+   {
+       "code": 200,
+       "description": "请求成功",
+       "detail": [
+           {
+               "correctOption": "D",  //正确答案
+               "coursepartId": 1,
+               "createTime": 1512028943000,
+               "id": 1,
+               "optionType": "1", //选项类型（1 代表文字，2代表图片，3代表音频）
+               "quesDesc": null, //问题描述（为空或者图片）
+               "quesOptions": "今天周一|今天周二|今天周三|今天周四",
+               "quesTitle": "下面选项正确的是？",//问题标题
+               "state": 1
+           },
+           {
+               "correctOption": "B",
+               "coursepartId": 1,
+               "createTime": 1512029281000,
+               "id": 2,
+               "optionType": "2",
+               "quesDesc": null,
+               "quesOptions": "/question/img/1A.png|/question/img/1B.png",
+               "quesTitle": "下面那个图片是对的？",
+               "state": 1
+           },
+           {
+               "correctOption": "A",
+               "coursepartId": 1,
+               "createTime": 1512029495000,
+               "id": 3,
+               "optionType": "1",
+               "quesDesc": "/question/img/Do.png",
+               "quesOptions": "Do|Re|Mi|Fa",
+               "quesTitle": "下面图片是？",
+               "state": 1
+           }
+       ]
+   }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+2000 | 参数错误

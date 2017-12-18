@@ -67,6 +67,21 @@
 * [2、根据id查找课程](#7-2) 
 * [3、修改课程](#7-3) 
 * [4、上传课程（excel上传）](#7-4) 
+* [5、获取所有类型的课程](#7-5) 
+
+#### 问答管理
+* [1、问题列表](#8-1) 
+* [2、添加问答](#8-2) 
+* [3、删除问答](#8-3) 
+* [4、修改问答](#8-4) 
+* [5、根据课程类型的课程id查找节课信息](#8-5) 
+* [6、根据id查找问答](#8-6)
+
+#### 学生答题
+* [1、学生答题列表](#9-1) 
+* [2、修改学生答案](#9-2) 
+* [3、根据id查找学生答案](#9-3) 
+
 
 
 ### 接口详情
@@ -1222,3 +1237,482 @@
 #### 接口错误码
 错误码 | 说明 |
 |:-----|:-----
+
+<h3 id="8-1">35.问题列表</h3>
+
+#### 接口名字
+* /question/findQuestionList.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* coursepartId：节课id
+* state：状态（1正常 2删除）
+* pageNo：页码
+
+#### 接口正确返回
+````
+  {
+      "code": 200,
+      "description": "请求成功",
+      "detail": {
+          "nextPage": 1,
+          "pageNo": 1,
+          "pageSize": 10,
+          "prePage": 1,
+          "rows": [
+              {
+                  "optionType": "1",
+                  "quesTitle": "下面选项正确的是？",
+                  "quesOptions": "今天周一|今天周二|今天周三|今天周四",
+                  "createTime": 1512028943000,
+                  "coursepartId": 1,
+                  "id": 1,
+                  "correctOption": "D",
+                  "state": 1
+              },
+              {
+                  "optionType": "2",
+                  "quesTitle": "下面那个图片是对的？",
+                  "quesOptions": "/question/img/1A.png|/question/img/1B.png",
+                  "createTime": 1512029281000,
+                  "coursepartId": 1,
+                  "id": 2,
+                  "correctOption": "B",
+                  "state": 1
+              },
+              {
+                  "optionType": "1",
+                  "quesTitle": "下面图片是？",
+                  "quesOptions": "Do|Re|Mi|Fa",
+                  "createTime": 1512029495000,
+                  "coursepartId": 1,
+                  "id": 3,
+                  "correctOption": "A",
+                  "state": 1,
+                  "quesDesc": "/question/img/Do.png"
+              },
+              {
+                  "optionType": "1",
+                  "quesTitle": "哪一个不是笑的？",
+                  "quesOptions": "哈哈|呵呵|嘿嘿|乎乎",
+                  "createTime": 1512094874000,
+                  "coursepartId": 3,
+                  "id": 4,
+                  "correctOption": "D",
+                  "state": 1
+              }
+          ],
+          "totalCount": 4
+      }
+  }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="8-2">36.添加问答(json格式请求)</h3>
+
+#### 接口名字
+* /question/insertQuestion.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* quesTitle*：问题标题
+* quesDesc：问题描述（此处一般为图片、音频等等，可以位空）
+* optionType*：选项类型（1代表文字型的 2代表资源型的）
+* quesOptions*：问题选项（选项之间以 | 隔开，如：哈哈|呵呵|嘿嘿|乎乎）
+* correctOption*：正确答案
+* coursepartId*：那一节课添加
+
+#### 接口正确返回
+````
+  {
+      "code": 200,
+      "description": "请求成功",
+      "detail":null 
+  }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100200014 | 标题不能为空
+100200015 | 问题选项类型不能为空
+100200016 | 问题选项不能为空
+100200017 | 正确答案不能为空
+100200018 | 节课id不能为空
+
+<h3 id="8-3">37.删除问答</h3>
+
+#### 接口名字
+* /question/deleteQuestion.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* id* ：id
+* quesTitle*：问题标题
+* quesDesc：问题描述（此处一般为图片、音频等等，可以位空）
+* optionType*：选项类型（1代表文字型的 2代表资源型的）
+* quesOptions*：问题选项（选项之间以 | 隔开，如：哈哈|呵呵|嘿嘿|乎乎）
+* correctOption*：正确答案
+* coursepartId*：那一节课添加
+
+#### 接口正确返回
+````
+  {
+      "code": 200,
+      "description": "请求成功",
+      "detail":null 
+  }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="8-4">38.修改问答</h3>
+
+#### 接口名字
+* /question/updateQuestion.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* id* ：id
+* quesTitle：问题标题
+* quesDesc：问题描述（此处一般为图片、音频等等，可以位空）
+* optionType：选项类型（1代表文字型的 2代表资源型的）
+* quesOptions：问题选项（选项之间以 | 隔开，如：哈哈|呵呵|嘿嘿|乎乎）
+* correctOption：正确答案
+* coursepartId：那一节课添加
+
+#### 接口正确返回
+````
+  {
+      "code": 200,
+      "description": "请求成功",
+      "detail":null 
+  }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="7-5">39.获取所有类型的课程</h3>
+
+#### 接口名字
+* /course/findAllCourse.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+
+#### 接口正确返回
+````
+  {
+      "code": 200,
+      "description": "请求成功",
+      "detail": [
+          {
+              "createTime": 1493978837000,
+              "description": "幼儿园",
+              "id": 6,
+              "name": "幼儿园",
+              "status": 1,
+              "type": 3
+          },
+          {
+              "createTime": 1490584858000,
+              "description": "丰台一小用的",
+              "id": 5,
+              "name": "丰台一小",
+              "status": 1,
+              "type": 2
+          },
+          {
+              "createTime": 1488363287000,
+              "description": "社培用",
+              "id": 4,
+              "name": "C版社培",
+              "status": 1,
+              "type": 4
+          },
+          {
+              "createTime": 1487037442000,
+              "description": "幼儿园的",
+              "id": 3,
+              "name": "幼儿园",
+              "status": 1,
+              "type": 3
+          },
+          {
+              "createTime": 1487037442000,
+              "description": "示范课",
+              "id": 2,
+              "name": "示范课",
+              "status": 1,
+              "type": 2
+          },
+          {
+              "createTime": 1487037442000,
+              "description": "一年级",
+              "id": 1,
+              "name": "一年级",
+              "status": 1,
+              "type": 1
+          }
+      ]
+  }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="8-5">40.根据课程类型的课程id获取节课信息</h3>
+
+#### 接口名字
+* /question/findCoursePartByCourseId.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* courseId*：课程类型id
+
+#### 接口正确返回
+````
+{
+    "code": 200,
+    "description": "请求成功",
+    "detail": [
+        {
+            "course_id": 1,
+            "part_sort": 1,
+            "path": "一年级",
+            "is_light": 0,
+            "name": "第一课",
+            "pid": 0,
+            "id": 1,
+            "has_source": 1,
+            "state": 1,
+            "type": 0,
+            "is_screen": 0
+        },
+        {
+            "course_id": 1,
+            "part_sort": 2,
+            "path": "一年级",
+            "is_light": 0,
+            "name": "第二课",
+            "pid": 0,
+            "id": 16,
+            "has_source": 1,
+            "state": 1,
+            "type": 0,
+            "is_screen": 0
+        },
+        {
+            "course_id": 1,
+            "part_sort": 3,
+            "path": "一年级",
+            "is_light": 0,
+            "name": "第三课",
+            "pid": 0,
+            "id": 36,
+            "has_source": 1,
+            "state": 1,
+            "type": 0,
+            "is_screen": 0
+        },
+        {
+            "course_id": 1,
+            "part_sort": 4,
+            "path": "一年级",
+            "is_light": 0,
+            "name": "第四课",
+            "pid": 0,
+            "id": 51,
+            "has_source": 1,
+            "state": 1,
+            "type": 0,
+            "is_screen": 0
+        }
+    ]
+}
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100200013 | 课程id不能为空
+
+<h3 id="8-6">41.根据id获取问答</h3>
+
+#### 接口名字
+* /question/findQuestion.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* id*：问答id
+
+#### 接口正确返回
+````
+{
+  "code": 200,
+  "description": "请求成功",
+  "detail": {
+    "correctOption": "D",
+    "coursepartId": 3,
+    "createTime": 1512094874000,
+    "id": 4,
+    "optionType": "1",
+    "quesDesc": null,
+    "quesOptions": "哈哈|呵呵|嘿嘿|乎乎",
+    "quesTitle": "哪一个不是笑的？",
+    "state": 1
+  }
+}
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="9-1">42.学生答案列表</h3>
+
+#### 接口名字
+* /questionStudent/findQuesStuList.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* schoolId：学校id
+* classId：班级id
+* coursepartId：节课id
+* pageNo：页码
+* state：状态
+
+#### 接口正确返回
+````
+{
+  "code": 200,
+  "description": "请求成功",
+  "detail": {
+    "nextPage": 1,
+    "pageNo": 1,
+    "pageSize": 10,
+    "prePage": 1,
+    "rows": [
+      {
+        "classId": 1,
+        "stuId": 1,
+        "createTime": 1513131744000,
+        "stuOption": "B",
+        "className": "1班",
+        "id": 23,
+        "state": 1,
+        "schoolName": "宣称十一小学",
+        "quesId": 3,
+        "isCorrect": 2
+      },
+      {
+        "classId": 1,
+        "stuId": 1,
+        "createTime": 1513131720000,
+        "stuOption": "A",
+        "className": "1班",
+        "id": 22,
+        "state": 1,
+        "schoolName": "宣称十一小学",
+        "quesId": 2,
+        "isCorrect": 1
+      },
+      {
+        "classId": 1,
+        "stuId": 1,
+        "createTime": 1513131693000,
+        "stuOption": "D",
+        "className": "1班",
+        "id": 21,
+        "state": 1,
+        "schoolName": "宣称十一小学",
+        "quesId": 1,
+        "isCorrect": 1
+      }
+    ],
+    "totalCount": 3
+  }
+}
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+<h3 id="9-2">43.修改学生答案</h3>
+
+#### 接口名字
+* /questionStudent/updateQuesStu.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* stuOption*：学生答案
+
+#### 接口正确返回
+````
+{
+  "code": 200,
+  "description": "请求成功",
+  "detail": null
+}
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100100019 | 学生答案不能为空
+
+<h3 id="9-3">44.根据id查找学生答案</h3>
+
+#### 接口名字
+* /questionStudent/findQuesStu.json
+
+#### 接口请求方式
+* GET/POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* id*：id
+
+#### 接口正确返回
+````
+{
+  "code": 200,
+  "description": "请求成功",
+  "detail": {
+    "classId": 1,
+    "count": null,
+    "coursepartId": 1,
+    "createTime": 1513131720000,
+    "id": 22,
+    "isCorrect": 1,
+    "quesId": 2,
+    "schoolId": 1,
+    "state": 1,
+    "stuId": 1,
+    "stuOption": "A"
+  }
+}
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+
+
+

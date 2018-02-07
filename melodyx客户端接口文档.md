@@ -32,7 +32,11 @@
 * [2、获取课程信息用于下载](#8)
 
 #### 问答接口
-* [1、根据节课id(coursepartId)获取问答信息](#9)
+* [1、根据节课id(courseId)获取问答信息](#9)
+* [2、保存学生答案](#10)
+* [3、根据学生id和问答id查找答题信息](#11)
+* [4、根据班级id、节课id 查询改班级下所有学生在该节课的答题正确数错误数](#12)
+* [5、查询某个班级下所有学生 对某道题的答题情况](#13)
 
 
 
@@ -150,36 +154,28 @@
 * GET/POST
 
 #### 接口请求参数(带*为必传。所有接口统一这样规定)
-* studentNo*：学号
-* sid*：学校id
+* account*：账号
 
 #### 接口正确返回
 ````
     {
-        "code": 200,
-        "description": "请求成功",
-        "detail": {
-            "address": "北京",
-            "age": 12,
-            "classId": 100,
-            "className": null,
-            "entrancetime": "2017-09-13 00:00:00",
-            "gender": 1,
-            "id": 334366,
-            "name": "3",
-            "phone": "13910000013",
-            "schoolId": 293,
-            "state": 1,
-            "studentNo": "3"
-        }
+      "code": 200,
+      "description": "请求成功",
+      "detail": {
+        "classId": 1,
+        "phone": "05631011002",
+        "schoolId": 4,
+        "className": "1班",
+        "id": 2,
+        "stuName": "2",
+        "schoolName": "宣称十一小学"
+      }
     }
 ````
 #### 接口错误码
 错误码 | 说明 |
 |:-----|:-----
-100100012 | 学号输入错误
-100100013 | 学号不能为空
-100100014 | 学校id不能为空
+100100012 | 账号不能为空
 
 
 <h3 id="5">5.获取老师的所有授课班级</h3>
@@ -326,7 +322,7 @@
 * GET/POST
 
 #### 接口请求参数(带*为必传。所有接口统一这样规定)
-* coursepartId*：节课id
+* courseId*：节课id
 
 #### 接口正确返回
 ````
@@ -374,3 +370,168 @@
 错误码 | 说明 |
 |:-----|:-----
 2000 | 参数错误
+
+<h3 id="10">10.保存学生答案</h3>
+
+#### 接口名字
+* /client/questionStudent/submitOption.json
+
+#### 接口请求方式
+* POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* stuOption*：学生答案
+* quesId*：问答id
+* stuId*：学生id
+* classId*：班级id
+
+#### 接口正确返回
+````
+   {
+       "code": 200,
+       "description": "请求成功",
+       "detail": null
+   }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100100019 | 学生答案不能为空
+100100020 | 问答id不能为空
+100100021 | 学生id不能为空
+
+<h3 id="11">11.根据学生id和问答id查找答题信息</h3>
+
+#### 接口名字
+* /client/questionStudent/findQuestionStudent.json
+
+#### 接口请求方式
+* POST
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* quesId*：问答id
+* stuId*：学生id
+
+#### 接口正确返回
+````
+   {
+     "code": 200,
+     "description": "请求成功",
+     "detail": {
+       "count": null,
+       "createTime": 1512110071000,
+       "id": 1,
+       "isCorrect": 1, //是否正确 1正确 2错误
+       "quesId": 1, //问题id
+       "state": 1,
+       "stuId": 1,//学生id
+       "stuOption": "D"//学生答案
+     }
+   }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100100020 | 问答id不能为空
+100100021 | 学生id不能为空
+
+<h3 id="12">12.根据班级id、节课id 查询改班级下所有学生在该节课的答题正确数错误数</h3>
+
+#### 接口名字
+* /client/questionStudent/findQuestionStudent.json
+
+#### 接口请求方式
+* POST/GET
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* classId*：班级id
+* coursepartId*：节课id
+
+#### 接口正确返回
+````
+   {
+     "code": 200,
+     "description": "请求成功",
+     "detail": [
+       {
+         "classId": 1,
+         "correctCount": 1, //正确问题数
+         "count": null,
+         "coursepartId": 1,
+         "createTime": 1512373876000,
+         "errorCount": 2,//错误问题数
+         "id": 5,
+         "nooptionCount": 0,//未回答问题数
+         "state": 1,
+         "stuId": 1
+       },
+       {
+         "classId": 1,
+         "correctCount": 1,
+         "count": null,
+         "coursepartId": 1,
+         "createTime": 1512378355000,
+         "errorCount": 0,
+         "id": 6,
+         "nooptionCount": 2,
+         "state": 1,
+         "stuId": 2
+       }
+     ]
+   }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100100011 | 班级id不能为空
+100200013 | 课程id不能为空
+
+<h3 id="13">13.查询某个班级下所有学生 对某道题的答题情况</h3>
+
+#### 接口名字
+* /client/questionStudent/findQuesStuInfo.json
+
+#### 接口请求方式
+* POST/GET
+
+#### 接口请求参数(带*为必传。所有接口统一这样规定)
+* classId*：班级id
+* quesId*：问题id
+
+#### 接口正确返回
+````
+   {
+     "code": 200,
+     "description": "请求成功",
+     "detail": [
+       {
+         "classId": 1,
+         "count": null,
+         "createTime": 1512373876000,
+         "id": 17,
+         "isCorrect": 1,//是否正确 1正确 2错误
+         "quesId": 1,
+         "state": 1,
+         "stuId": 1,
+         "stuOption": "D" //学生答案
+       },
+       {
+         "classId": 1,
+         "count": null,
+         "createTime": 1512378355000,
+         "id": 20,
+         "isCorrect": 1,
+         "quesId": 1,
+         "state": 1,
+         "stuId": 2,
+         "stuOption": "D"
+       }
+     ]
+   }
+````
+#### 接口错误码
+错误码 | 说明 |
+|:-----|:-----
+100100011 | 班级id不能为空
+100100020 | 问题id不能为空
+

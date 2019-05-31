@@ -1,10 +1,5 @@
 
-## melodyx后台接口文档
-
-### 版本
-版本        | 修改日期		| 修改人  | 修改记录
-:---------- |:-------------|:-----|:--------
-1.0.0    | 20171009 | 宁旭温 | 创建文档
+## 酷音后台接口文档
 
 ### 系统错误码
 |错误码 | 描述 |
@@ -207,7 +202,7 @@
                     "createTime": null,
                     "endTime": "2018-09-13",
                     "id": 512,
-                    "name": "天使音乐",
+                    "name": "酷音",
                     "startTime": "2017-09-13",
                     "status": 0,
                     "validateDay": 0
@@ -219,7 +214,7 @@
                     "createTime": null,
                     "endTime": "2018-09-13",
                     "id": 511,
-                    "name": "天使音乐",
+                    "name": "酷音",
                     "startTime": "2017-09-13",
                     "status": 0,
                     "validateDay": 0
@@ -497,7 +492,7 @@
                "createTime": null,
                "endTime": null,
                "id": 1,
-               "name": "天使学校",
+               "name": "酷音学校",
                "startTime": null,
                "status": 0,
                "validateDay": 0
@@ -554,7 +549,7 @@
                    "name": "20",
                    "id": 334383,
                    "state": 1,
-                   "schoolName": "天使音乐小学",
+                   "schoolName": "酷音小学",
                    "age": 12
                },
                {
@@ -566,7 +561,7 @@
                    "name": "19",
                    "id": 334382,
                    "state": 1,
-                   "schoolName": "天使音乐小学",
+                   "schoolName": "酷音小学",
                    "age": 12
                }
            ],
@@ -691,7 +686,7 @@
                   "create_time": 1505268248000,
                   "name": "音乐课程",
                   "id": 188,
-                  "schoolName": "天使音乐小学"
+                  "schoolName": "酷音小学"
               },
               {
                   "school_id": 292,
@@ -838,7 +833,7 @@
                   "name": "1班",
                   "id": 100,
                   "gname": "音乐课程",
-                  "schoolName": "天使音乐小学"
+                  "schoolName": "酷音小学"
               },
               {
                   "create_time": 1500787421000,
@@ -985,7 +980,7 @@
   {"code":200,
   "description":"请求成功",
   "detail":{"amCourse":null,"courseId":1,"courseName":null,"createTime":"2017-02-13 19:21:02",
-            "endTime":"2017-12-31","id":1,"name":"天使学校","startTime":"2017-01-01","status":1,"validateDay":1
+            "endTime":"2017-12-31","id":1,"name":"酷音学校","startTime":"2017-01-01","status":1,"validateDay":1
            }
   }
 ````
